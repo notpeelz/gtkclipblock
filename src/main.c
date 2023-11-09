@@ -152,35 +152,35 @@ static void* dlopen_hook(char const* file, int mode) {
   bool gtk3_loaded = !was_gtk3_loaded && is_library_loaded(&library_gtk3);
   bool gtk4_loaded = !was_gtk4_loaded && is_library_loaded(&library_gtk4);
 
-#if defined(HOOK_GTK2)
   if (!library_gtk2.disabled && gtk2_loaded) {
     if (library_gtk2.dl_handle == nullptr) {
+#if defined(HOOK_GTK2)
       library_gtk2.dl_handle = original_dlopen(file, RTLD_LAZY | RTLD_NOLOAD);
       assert(library_gtk2.dl_handle != nullptr);
       hook_gtk2_install_hooks(library_gtk2.dl_handle);
+#endif
     }
   }
-#endif
 
-#if defined(HOOK_GTK3)
   if (!library_gtk3.disabled && gtk3_loaded) {
     if (library_gtk3.dl_handle == nullptr) {
+#if defined(HOOK_GTK3)
       library_gtk3.dl_handle = original_dlopen(file, RTLD_LAZY | RTLD_NOLOAD);
       assert(library_gtk3.dl_handle != nullptr);
       hook_gtk3_install_hooks(library_gtk3.dl_handle);
+#endif
     }
   }
-#endif
 
-#if defined(HOOK_GTK4)
   if (!library_gtk4.disabled && gtk4_loaded) {
     if (library_gtk4.dl_handle == nullptr) {
+#if defined(HOOK_GTK4)
       library_gtk4.dl_handle = original_dlopen(file, RTLD_LAZY | RTLD_NOLOAD);
       assert(library_gtk4.dl_handle != nullptr);
       hook_gtk4_install_hooks(library_gtk4.dl_handle);
+#endif
     }
   }
-#endif
 
 ret:
   assert(pthread_mutex_unlock(&dlfcn_mutex) == 0);
