@@ -47,19 +47,19 @@ static fhh_hook_state_t dlclose_hook_state = {};
 static void load_settings() {
   char* env;
 
-  library_gtk2.disabled = false;
-  library_gtk3.disabled = false;
-  library_gtk4.disabled = false;
+  library_gtk2.disabled = true;
+  library_gtk3.disabled = true;
+  library_gtk4.disabled = true;
   hook_dlfcn_disabled = false;
 
   env = getenv("GTKCLIPBLOCK_HOOK");
   if (env != nullptr) {
-    if (strcmp(env, "") == 0 || strcmp(env, "1") == 0) {
+    if (strcmp(env, "") == 0 || strcmp(env, "0") == 0) {
       // this is the default
-    } else if (strcmp(env, "0") == 0) {
-      library_gtk2.disabled = true;
-      library_gtk3.disabled = true;
-      library_gtk4.disabled = true;
+    } else if (strcmp(env, "1") == 0) {
+      library_gtk2.disabled = false;
+      library_gtk3.disabled = false;
+      library_gtk4.disabled = false;
     } else {
       library_gtk2.disabled = true;
       library_gtk3.disabled = true;
@@ -85,16 +85,16 @@ static void load_settings() {
     env = nullptr;
   }
 
+  if (library_gtk2.disabled && library_gtk3.disabled && library_gtk4.disabled) {
+    hook_dlfcn_disabled = true;
+  }
+
   env = getenv("GTKCLIPBLOCK_HOOK_DLFCN");
   if (env != nullptr) {
     if (strcmp(env, "0") == 0) {
       hook_dlfcn_disabled = true;
     }
     env = nullptr;
-  }
-
-  if (library_gtk2.disabled && library_gtk3.disabled && library_gtk4.disabled) {
-    hook_dlfcn_disabled = true;
   }
 }
 
