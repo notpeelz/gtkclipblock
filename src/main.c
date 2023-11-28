@@ -66,9 +66,9 @@ static void load_settings() {
       library_gtk4.disabled = true;
 
       env = strdup(env);
-      static char const* const separators = ",";
+      static char const* const delim = ",";
       char* tok_rest = nullptr;
-      char* tok = strtok_r(env, separators, &tok_rest);
+      char* tok = strtok_r(env, delim, &tok_rest);
       while (tok != nullptr) {
         if (strcmp(tok, "gtk2") == 0) {
           library_gtk2.disabled = false;
@@ -78,7 +78,7 @@ static void load_settings() {
           library_gtk4.disabled = false;
         }
 
-        tok = strtok_r(NULL, separators, &tok_rest);
+        tok = strtok_r(nullptr, delim, &tok_rest);
       }
       free(env);
     }
