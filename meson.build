@@ -19,9 +19,13 @@ c_args = [
   '-Werror',
   '-Wno-error=unused-function',
   '-Wno-error=unused-parameter',
+  '-Wno-error=unused-but-set-parameter',
+  '-Wno-error=unused-but-set-variable',
   '-Wno-error=unused-variable',
   '-Wno-error=unused-value',
   '-Wno-error=unused-label',
+  '-Wno-error=unused-const-variable',
+  '-Wno-error=unused-result',
   # HACK: stop vscode's intellisense from complaining about missing c2x features
   '-include', meson.source_root() / 'c2xcompat.h',
 ]
