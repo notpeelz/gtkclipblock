@@ -8,13 +8,8 @@ project(
   ],
 )
 
-add_project_arguments('-D_POSIX_C_SOURCE=200809L', language: 'c')
-
-files = [
-  'src/main.c',
-]
-
-c_args = [
+add_project_arguments([
+  '-D_POSIX_C_SOURCE=200809L',
   '-Wno-pedantic',
   '-Werror',
   '-Wno-error=unused-function',
@@ -28,7 +23,7 @@ c_args = [
   '-Wno-error=unused-result',
   # HACK: stop vscode's intellisense from complaining about missing c2x features
   '-include', meson.source_root() / 'c2xcompat.h',
-]
+], language: 'c')
 
 conf_data = configuration_data()
 
@@ -60,7 +55,6 @@ if opt_gtk2.allowed()
         .partial_dependency(compile_args: true),
     ],
     include_directories: gtk2hook_inc,
-    c_args: c_args,
   )
   gtk2hook_dep = declare_dependency(
     link_with: gtk2hook,
@@ -87,7 +81,6 @@ if opt_gtk3.allowed()
         .partial_dependency(compile_args: true),
     ],
     include_directories: gtk3hook_inc,
-    c_args: c_args,
   )
   gtk3hook_dep = declare_dependency(
     link_with: gtk3hook,
@@ -114,7 +107,6 @@ if opt_gtk4.allowed()
         .partial_dependency(compile_args: true),
     ],
     include_directories: gtk4hook_inc,
-    c_args: c_args,
   )
   gtk4hook_dep = declare_dependency(
     link_with: gtk4hook,
@@ -140,7 +132,7 @@ endif
 
 gtkclipblock = shared_library(
   soname,
-  files,
+  'src/main.c',
   install: true,
   dependencies: [
     funchook_helper_dep,
@@ -154,5 +146,7 @@ gtkclipblock = shared_library(
   link_args: [
     '-Wl,--version-script', meson.project_source_root() / 'version.map',
   ],
-  c_args: c_args + ['-include', meson.current_build_dir() / 'config.h'],
+  c_args: [
+    '-include', meson.current_build_dir() / 'config.h',
+  ],
 )
