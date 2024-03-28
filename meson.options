@@ -1,25 +1,20 @@
 option(
-  'gtk-version',
-  type: 'combo',
-  choices: ['hybrid', '2', '3', '4'],
-  description: 'which GTK library should be hooked',
-  value: 'hybrid',
+  'soname-suffix',
+  type: 'string',
+  description: 'A suffix to append to the library name.',
 )
-
 option(
   'gtk2',
   type: 'feature',
-  description: 'hook GTK2 symbols',
+  description: 'Enables hooking GTK2 symbols.',
 )
-
 option(
   'gtk3',
   type: 'feature',
-  description: 'hook GTK3 symbols',
+  description: 'Enables hooking GTK3 symbols.',
 )
-
 option(
   'gtk4',
   type: 'feature',
-  description: 'hook GTK4 symbols',
+  description: 'Enables hooking GTK4 symbols.',
 )
