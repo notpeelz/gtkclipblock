@@ -11,7 +11,6 @@ project(
 add_project_arguments([
   '-D_POSIX_C_SOURCE=200809L',
   '-Wno-pedantic',
-  '-Werror',
   '-Wno-error=unused-function',
   '-Wno-error=unused-parameter',
   '-Wno-error=unused-but-set-parameter',
