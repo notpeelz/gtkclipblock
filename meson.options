@@ -1,4 +1,9 @@
 option(
+  'docdir',
+  type: 'string',
+  description: 'documentation directory',
+)
+option(
   'soname-suffix',
   type: 'string',
   description: 'A suffix to append to the library name.',
