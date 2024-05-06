@@ -4,8 +4,8 @@ subdir('gtk2')
 subdir('gtk3')
 subdir('gtk4')
 
-configure_file(
-  output: 'config.h',
+file_buildconf = configure_file(
+  output: 'buildconf.h',
   configuration: CONF_DATA,
 )
 
@@ -29,6 +29,6 @@ shared_library(
     '-Wl,--version-script=@0@'.format(meson.current_source_dir() / 'version.map'),
   ],
   c_args: [
-    '-include', meson.current_build_dir() / 'config.h',
+    '-include', file_buildconf.full_path(),
   ],
 )
