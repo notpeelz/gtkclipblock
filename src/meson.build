@@ -23,7 +23,7 @@ shared_library(
     DEP_GTK4HOOK,
   ],
   link_args: [
-    '-Wl,--version-script', meson.project_source_root() / 'version.map',
+    '-Wl,--version-script=@0@'.format(meson.current_source_dir() / 'version.map'),
   ],
   c_args: [
     '-include', meson.current_build_dir() / 'config.h',
