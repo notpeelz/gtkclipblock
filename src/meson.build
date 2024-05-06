@@ -22,6 +22,9 @@ shared_library(
     DEP_GTK3HOOK,
     DEP_GTK4HOOK,
   ],
+  include_directories: [
+    include_directories('.'),
+  ],
   link_args: [
     '-Wl,--version-script=@0@'.format(meson.current_source_dir() / 'version.map'),
   ],
